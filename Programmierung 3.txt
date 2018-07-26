@@ -1,0 +1,497 @@
+﻿Programmierung 3
+
+
+* 6 Übungsaufgaben
+* 0-3 Punkte 
+* 6 Punkte notwendig für die Zulassung zur Klausur
+* Klausur
+   * Theorie: 60 min, 50 Punkte
+   * Praxis: 90 min, 32 Punkte
+   * Übung: max. 18 Punkte
+
+
+06.04.2018
+Vererbung
+ call by value / call by reference
+* bei Übergabe von Objekten immer call by reference
+* bei Übergabe von simplen Datentypen nimmer call by value
+Signatur
+Überladung
+* Überladung die zum Kompilierungszeitpunkt aufgelöst werden heißen Statische Polymorphie oder auch early binding
+* Voraussetzung dafür sind eindeutige Signaturen und statische Typisierung
+Vererbung
+* Abstraktion, Wiederverwendbarkeit, Kapselung, Polymorphie
+* bricht Kapselung um Wiederverwendbarkeit zu erleichtern
+* Möglichkeit Polymorphie zu realisieren
+* Klassen lassen sich von anderen Klassen ableiten
+* Instanzen der abgeleiteten Klasse können überall verwendet werden, wo Instanzen der Basisklasse verwendet werden können
+* Ableitung ist üblicherweise eine “ist ein”-Relation
+* von unspezifisch zu spezifisch
+* von Basisfunktionen zu erweiterten Funktionalitäten
+Polymorphie / late binding
+* auszuführende Methode wird zur Laufzeit bestimmt
+* auffinden der zuletzt überschriebenen Methode in der Ableitungshierarchie über der Instanzklasse
+* Voraussetzung ist ein eindeutiger Pfad durch die Ableitungshierarchie
+* late binding: Überschreiben
+* early binding: Überladen
+Verstecken / Überschreiben
+* Felder werden bei gleichem Namen versteckt
+* Methoden werden bei gleicher Signatur überschrieben
+* Zugriff innerhalb der abgeleiteten Klasse mittels super möglich
+* Zugriff auf Felder ist von außerhalb per cast möglich
+Konstruktoren werden nicht vererbt
+default Konstruktor
+* definiert eine Klasse keinen Konstruktor fügt der Kompiler einen default Konstruktor hinzu
+* public Klasse () {super (); }
+* enthält ein Konstruktor keinen Aufruf von super, fügt der Kompiler den Aufruf von super () als erste Anweisung hinzu
+Object-Klasse
+* Basisklasse für alle Klassen die nicht explizit abgeleitet werden 
+* stellt Basisfunktionalität (zum Überschreiben) bereit
+* boolean equals (Object o)
+* String toString ()
+* Class<?> getClass ()
+Sichtbarkeit
+* public ist überall sichtbar wp die Klasse sichtbar ist
+* protected ist nur für die Ableitungen sichtbar
+* private ist nur innerhalb der Klasse sichtbar
+* Felder sollten prinzipiell als private deklariert werden
+* Sichtbarkeit von Methoden kann durch Ableitung nicht reduziert werden
+* Sichtbarkeit ist kein Sicherheitsmerkmal
+Abstrakte Klassen
+* können nicht instanziiert werden
+* können abstrakte Methoden ohne Implementierung definieren
+* abgeleitete Klassen müssen abstrakte Methoden implementieren oder selbst abstrakt sein
+* können als Typ verwendet werden
+Probleme durch Vererbung
+* aufgebrochene Kapselung
+   * abgeleitete Klassen können Verhalten der Oberklasse ändern u.a. auch Initialisierung
+   * Änderungen an Oberklassen kann Anpassung der Unterklassen erfodern
+* Mehrfachvererbung
+Interfaces
+* können nicht instanziiert werden
+* können Methoden ohne Implementierung definieren
+* können als Typ verwendet werden
+* implementierende Klassen müssen die definierten Methoden implementieren oder abstrakt sein
+* Interfaces können von mehreren Interfaces ableiten
+* Klassen können mehrere Interfaces implementieren
+* Interfaces können nicht von Klassen ableiten
+Interfaces als Vertrag
+* Trennung von Design (Interfaces) und Implementierung (Klassen) erlaubt die parallele und unabhängige Programmierung
+
+
+Pakete / Unittest / Enums / Generics
+13.04.2018
+Pakete
+* inhaltliche Zuordnung
+* Namensraum / physikalische Aufbewahrung
+* Sichtbarkeit
+* default Paket
+   * falls kein Paket explizit angegeben wird
+   * kann nicht importiert werden
+Unittests
+* kleinteilig, üblicherweise objektbezogen
+* gehören zur Implementierung
+* werden von Programmierern erstellt
+* werden üblicherweise nicht ausgeliefert
+* für private Methoden
+   * nicht testen
+   * private auf package private setzen
+   * innere Klassen
+   * Reflection
+* Test erstellen
+   * Unittests immer vor Ausprogrammierung erstellen
+   * nachfolgend erstellte Tests unterliegen Bestätitungsfehler
+   * für Tests nach der Implementierung hat niemand Zeit
+Enums
+* definieren ein unveränderbares, geordnetes Set von exklusiven Zuständen
+* Konstanten in einem Enum sind Objekte, verhalten sich aber ähnlich wie primitive Datentypen
+* Enums können nicht abgeleitet werden, da sie implizit von der primordial class Enum ableiten
+
+
+Ereignisorientierte Programmierung
+20.04.2018
+Ziele
+* Modellierung von Kommunikation wie in der realen Welt
+* Verarbeitung von Daten aus verschiedenen nicht sequenziellen Quellen 
+* Entkopplung von Objekten
+Beispiel
+* graphische Oberflächen
+Monolithen
+* Vorteile: kompakter Code, einfach nachvollziehbar
+* Nachteile: zwingend sequentiell, keine Trennung der Funktionalität, limitierte Verzweigung, schwach objektorientiert
+Ereignis-Orientierung
+* Funktionalität in Objekten realisieren
+* Gesamtsystem wird durch interagierende Objekte realisiert
+* Inversion of Control
+   * reduzierter Hauptkontrollfluss
+   * Modellierung der spezifischen Kontrollflüsse
+Subjekt und Beobachter
+* Subjekt: beobachtetes Objekt, kapselt Zuständsübergänge
+* Beobachter: liest Zustände des Subjekts, reagiert auf Zustandsänderungen des Subjekts
+* Folie 10: while-Schleife ist Beobachter, Scanner ist Beobachter
+* leeres Interfaces: man kann alle Klasse die das Interfaces implementieren als eins behandeln
+
+
+* für kleine Anwendung sehr großer overhead
+* aber bessere Kapselung, bessere Entkoppelung
+Typische Verwendung in (GUI-) Framewrok
+* vordefinierte Objekte für Ein- und Ausgabe
+* vordefinierte Events
+* Anwendungsprogrammierer:
+   * instanziiert (und konfiguriert ggf.) benötigte Objekte
+   * befolgt Inversion-of-Control-Paradigma
+Handler Implementierungen
+* dezidierte Klassen
+* innere Klassen
+* lokale Klassen im scope einer Methode
+* anonyme Klassen
+* Lambda-Ausdrücke
+innere Klassen
+* werden innerhalb der umgebenden Klasse definiert
+* haben Zugriff auf alle Felder und Methoden der umgebenden Klasse
+* ihre Sichtbarkeit kann wie die von Feldern und Methoden definiert werden
+* werden vom Compiler in eigenständige Klassen umgewandelt:
+   * UmgebendeKlasse$InnereKlasse.class
+anonyme/lokale Klassen
+* erweitern immer ein Interface oder eine Klasse
+* können keine statischen Felder oder Methoden definieren
+* können keinen Konstruktor definieren
+* besitzen immer genau einen Konstruktor
+   * leer bei Ableitung von Interface 
+   * oder definiert in der Oberklasse
+* haben Zugriff auf alle Variablen, Felder und Methoden im scope
+* werden vom Compiler in eigenständige Klassen umgewandelt:
+   * UmgebendeKlasse$Zähler.class
+Handler Implementierungen
+* dezidierte Klassen
+   * Standardfunktionalität (Wiederverwendung)
+   * definieren Basisfunktionalität für Typen (abstrakte Klassen)
+* innere Klassen
+   * mehrfache Verwendung in genau einem Anwendungskontext
+* lokale Klassen im scope einer Methode
+   * ungebräuchlich
+* anonyme Klassen
+   * einzigartige Funktionalität
+* Lambda-Ausdrücke
+   * ersetzen anonyme Klassen ab Java 8
+event delivery process
+* target selection
+   * key events: Node im Fokus
+   * mouse events: Node unter dem Cursor
+* route construction
+   * im Normalfall vom root-Node zum target
+* event capturing
+* event bubbling
+* Notwendigkeit: Shortcuts, deaktivierte Elemente, Tabulator und Eingabetaste in Texteingabefeldern
+
+
+Sensor: aktiv/inaktiv, Zustand kommunizieren → Kommunikation zu Ampel, Event
+Ampel: Farben, Zustandsübergänge, kommunizieren (Eingabe und Ausgabe) → Kommunikation zu Ausgabe, Listener 
+Kreuzung: enthält Ampel und Sensoren, Setup
+<<Beobachter>>Eingabe: Benutzer lesen → Kommunikation zu Sensor
+<<Subjekt>>Ausgabe: Ampel, ausgeben von Farben 
+SensorEvent
+Event ist eigene Klasse
+Beobachter Muster, wenn Kopplung sehr eng ist
+1 Sensor, 1 Ampel
+
+
+Sensor Ampel rot grün
+Aktiv    → grün.    Nichts
+Inaktiv. Nichts.      → rot / nichts
+
+
+04.05.2018
+Nebenläufigkeit I
+nebenläufige Funktionalität
+* Benutzeringaben
+* Berechnungen
+* Animationen
+* Ressourcenzugriffe
+* zeitgesteuerte Aktionen
+Definition
+* Kontrollflüsse können nebenläufig sein, wenn sie kausal unabhängig sind
+* Kontrollflüsse sind kausal unabhängig voneinander, wenn keiner die Ursache für den anderen ist
+* parallele Programmierung != nebenläufige Programmierung
+   * nebenläufig kann parallel/gleichzeitig sein, muss aber nicht
+* verteilte Programmierung != nebenläufige Programmierung
+   * Ausführung auf verschiedenen Rechnern
+Scheduler
+* verteilt nebenläufige Kontrollflüsse (Threads) auf (virtuelle) Prozessoren
+* mit Zuweisung zu einem Prozessor bekommt der Thread auch eine Zeitscheibe (time slice)
+* ist Zeit abgelaufen bevor der Thread abgeschlossen ist, wird der Zustand des Threads gespeichert (thread description block + instruction pointer)
+* der Scheduler entscheidet über Reihenfolge, Fortsetzung und Zeitscheiben der Threads
+* garantiert nicht:
+   * auf welchem Prozessor ein Thread ausgeführt wird
+   * die Größe der Zeitscheiben und damit die Anzahl der Instruktionen die konsekutiv ausgeführt werden
+   * die Reihenfolge der Ausführung mehrerer Threads
+   * die Gleichbehandlung von Threads bezüglich der Zeitscheiben und Häufigkeit der Zuweisung zu einem Prozessor
+* Die Konsquenz daraus ist eine nicht-deterministische Ausführung nebenläufiger Programme, dh gleiche Eingaben bzw Konfigurationen können zu unterschiedlichen Programmabläufen führen.
+Ende nebenläufiger Programme
+* gestartete Threads sollen noch abgearbeitet werden
+   * keine explizite Implementierung, da die JVM erst beendet wird, wenn alle (User-)Threads abgearbeitet sind
+   * warten auf die Abarbeitung aller Threads
+* gestartete Threads sollen abgebrochen werden
+   * Markierung der Threads als deamons
+   * externer Abbruch der Threads
+Threads unterbrechen
+* Instanzmethode interupt()
+   * signalisiert dem Thread einen Abbruch bzw. Unterbrechung
+   * Reaktion darauf obliegt dem Thread
+* Instanzmethode isInterupted()
+   * überprüft ob ein Abbruchsignal gesendet wurde
+* Klassenmethode interupted()
+   * überprüft ob ein Abbruchsignal gesendet wurde und löscht dieses
+   * eine zweite Überprüfung - auch mit der Instanzmethode - ergibt false, außer ein neues Signal wurde gesendet
+* Exception InteruptedException
+   * wird geworfen wenn der Thread schläft oder wartet während interupt() aufgerufen wird
+concurrent computing
+* kausale Unabhängigkeit bedeutet nicht, das Threads nicht auf gemeinsame Daten zugreifen
+* Thread (im Gegensatz zu Prozessen) teilen sich einen gemeinsamen Adressraum, dh es ändert sich nichts an der Sichtbarkeit im Vergleich zur herkömmlichen Programmierung
+Java-Schlüsselwort volatile
+* garantiert, dass Zugriffe auf gekennzeichnete Felder mit dem Hauptspeicher synchronisiert werden
+* weiterhin wird beim Zugriff auf ein als volatile gekennzeichnetes Feld auch der restliche Zustand des Threads mit dem Hauptspeicher synchronisiert
+* Zugriffe auf volatile Felder unterbinden (weitgehend) die Umsortierung von Anweisungen (instruction reordering)
+* verhindert Performanceoptimierung bezüglich der Hauptspeicherzugriffe
+instruction reordering
+* JVM und CPU dürfen (und werden) Anweisungsblöcke umsortieren um eine höhere Performance zu erreichen
+* Semantik bleibt erhalten
+atomare Operationen in Java
+* sind Anweisungen die vom Scheduler nicht unterbrochen werden können
+* in Java gibt es keine atomare Anweisungen, außer dem Zugriff (Lesen bzw Schreiben) auf als volatile gekennzeichnete Variablen
+Monitore
+* schützen Programmabschnitte die nur von einem Thread zur gleichen Zeit ausgeführt werden dürfen
+* die Programmabschnitte bezeichnet man als kritische Bereiche
+* bevor ein Thread einen kritischen Bereich ausführen kann, prüft der Monitor ob eine Sperre vorliegt
+* falls ja wird der Thread zum Warten gezwungen
+* liegt keine Sperre vor kann der Thread mit der Ausführung beginnen und eine Sperre für alle anderen Threads wird angelegt
+* beim Verlassen des kritischen Bereichs wird die Sperre wieder aufgehoben
+* jede Instanz die von Objekt ableitet kann als Monitor verwendet werden
+
+
+18.05.2018
+Nebenläufigkeit II
+wait(), notify() und notifyAll()
+* sind Methoden von Object und können daher an allen Monitoren aufgerufen werden
+* dürfen nur innerhalb eines kritischen Bereichs aufgerufen werden
+* wait() registriert den aufrufenden Thread am Monitor und entzieht dem Thread die Rechenzeit (für immer), außerdem wird der aktuelle Monitor wieder freigegeben
+* notify() gibt einem wartenden Thread die Möglichkeit den kritischen Bereich wieder zu betreten, dh er bekommt wieder Rechenzeit
+* notifyAll() gibt allen wartenden Threads die Möglichkeit den kritischen Bereich wieder zu betreten, dh sie bekommen wieder Rechenzeit
+weitere Thread-Methoden
+* setPriority(int newPriority) setzt die Priorität eines Threads, ist nur ein Hinweis an den Scheduler
+* yield() gibt dem Scheduler den Hinweis, dass der Thread die aktuelle Zeitscheibe nicht benötigt 
+* String getName() liefert den Namen eines Threads
+java.util.concurrent
+* maßgeblich von Doug Lea entwickeltes Paket für Nebenläufigkeit
+* Schutz kritischen Bereiche (java.util.concurrent.lock)
+* Threadmanagement
+* threadsichere Collections
+* threadsichere Variablen (java.util.concurrent.atomic)
+Locks in java.concurrent.lock
+* Semaphore erlaubt einer bestimmten Anzahl von Threads den Zugriff
+* CountDownLatch blockiert bis eine bestimmte Anzahl von Signalen erreicht ist
+* CyclicBarrier blockiert bis eine vordefinierte Menge von Threads die Sperre erreicht hat
+* Phaser Kombination von CountDownLatch und CyclicBarrier
+* Exchanger blockiert bis zwei Threads die Barriere erreichen um Daten zu tauschen
+paralleles Rechnen/Amdahlsches Gesetz
+* beschreibt den Geschwindigkeitsgewinn durch nebenläufige Ausführung
+* Gesamtausführungszeit = sequentiell + nebenläufig
+* Geschwindigkeitsgewinn = 1 / sequentiell + (nebenläufig / Prozessorenanzahl)
+* sequentielle Anteile
+   * Initialisierung
+   * Singuläre Ressourcen
+   * Ergebnisse zusammenführen
+Thread overhead
+* Konstruktion und Dekonstruktion
+* Verwalten der Threaddaten (thread description block + instruction pointer)
+* Auswechseln der Threads (context switch)
+Executor, Executorservice und Executors
+* Executoren sind Implementierungen von Threadpools 
+   * ThreadPoolExecutor verwaltet eine Menge von Threads an die Aufgaben (Callable oder Runable) übergeben werden können
+   * ScheduledThreadPoolExecutor verwaltet Threads die in regelmäßigen Abständen ausgeführt werden sollen
+* ExecutorServices bieten komfortablen Zugriff auf Threadpools (Executoren)
+   * Erzeugung durch die statische Klasse Executors
+   * Übergabe von Aufgaben
+   * Herunterfahren
+java.util.concurrent.Future<V>
+* liefert den Zugriff auf Ergebnisse von einem Callable und ermöglicht das Fangen von Exceptions
+* V get() throws InterruptedException, ExecutionException liefert den Zugriff auf das Ergebnis und sperrt bis die Berechnung beendet ist
+* boolean isDone() prüft ob die Berechnung abgeschlossen ist
+* boolean cancel(boolean mayInterruptIfRunning) bricht die Berechnung ab, falls die Berechnung bereits gestartet wurde obliegt es dem Thread den Abbruch zu realisieren
+
+
+Java Collections Framework
+Sammlung (Collection)
+* Sammlung von Objekten
+* kann Duplikate enthalten
+* hat keine Ordnung
+* kann keine primitiven Datentypen enthalten
+Iterator
+* realisiert einen Zeiger auf eine Sammlung von Elementen
+* Implementierung ist stark von der zugrunde liegenden Sammlung abhängig
+* ist nicht auf Sammlung beschränkt zb java.util.Scanner
+Liste (List)
+* geordnete (durch Einfügen) Sammlung von Objekten
+* kann Duplikate enthalten
+* erlaubt Lesen und Schreiben per Index (get und set)
+Set
+* Sammlung von Objekten ohne Duplikate
+* hat keine Ordnung
+* add fügt nicht garantiert ein
+hashCode & equals
+* Instanzen die gleich sind dürfen keine unterschiedlichen Hashes haben
+geordnetes Set
+* Sammlung von Objekten ohne Duplikate
+* hat eine Ordnung 
+   * durch Einfügen: LinkedHashSet
+   * natürliche Ordnung: TreeSet
+* add fügt nicht garantiert ein
+LinkedHashSet
+* basiert wie HashSet auf HashTable kombiniert mit einer LinkedList
+* Reihenfolge definiert durch Reihenfolge des Einfügens
+Map
+* Sammlung von Schlüssel-Wert-Paaren
+* keine Duplikate von Schlüsseln erlaubt
+* Suche nach Schlüssel schnell, nach Werten langsam
+Zwischenspeicher
+* geordnete Sammlung von Objekten
+* kann Duplikate enthalten
+* erlaubt Lesen und Schreiben nur am Anfang bzw Ende
+* Stack: FILO (first in last out)
+* Queue: FIFO (first in first out)
+* Dequeue (double ended queue): FILO & FIFO
+
+
+ThreadedPipeLine
+
+
+call by value: innerhalb der aufgerufenen Funktion wird mit Kopie gearbeitet, Änderungen wirken sich nicht auf ursprünglichen Wert aus
+call by reference: Änderungen wirken sich auf den ursprünglichen Wert aus
+Signatur: Signatur einer Methode ist Name, Anzahl, Typ und Reihenfolge von Parametern, muss eindeutig in einer Klasse sein
+Überladung: derselbe Methodenname wird mehrfach in einer Klasse verwendet
+Polymorphie: wenn 2 Klassen denselben Methodennamen verwenden, aber die Implementierung der Methoden sich unterscheiden
+early binding/late binding: early (or static) binding refers to compile time binding and late (or dynamic) binding refers to runtime binding 
+Typisierung: Zuweisung eines Objekts zu einem Datentyp
+statische Typisierung: Typen bereits während der Kompilierung und vor Laufzeit des eigentlichen Programms überprüft
+OOP Abstraktion: Trennung zwischen Konzept und Umsetzung
+OOP Wiederverwendbarkeit: durch Wiederverwendung von Programmcode können Codewiederholungen vermieden werden
+OOP Kapselung: Verbergen von Daten oder Informationen vor dem Zugriff von außen
+OOP Vererbung: neue Klasse als Erweiterung einer bereits bestehenden Klasse
+Vererbungsbäume: einzelne Hierarchiestufen oder Vererbungsebenen 
+Subtyping: polymorphism in which a subtype is a datatype that is related to another datatype
+verstecken: gar nicht nutzen, Felder bei gleichem Namen versteckt
+überschreiben: anders nutzen, Methoden bei gleicher Signatur überschrieben
+Sichtbarkeit: innerhalb sind alle Methoden und Attribute für Methoden sichtbar, Schutz vor externem Zugriff
+abstract: Klassen oder Methoden, die nicht oder nur teilweise implementiert sind, findet in abgeleiteten Typen und überschriebenen Methoden statt
+Interface: Schnittstelle, über die einer Klasse bestimmte Funktionen zur Verfügung gestellt werden, um Funktionen zu nutzen müssen sie von Klasse implementiert werden
+packages: enthält eine oder mehrere Klasse, die sich einen Geltungsbereich für Klassen teilen, inhaltliche Zuordnung, Namensraum/physikalische Aufbewahrung, Sichtbarkeit
+Unittests: um funktionale Einzelteile von Programmen zu testen, kleinteilig, objektbezogen
+Testabdeckung: Anwendungs- und Extremfälle
+Technische Schulden: Schwächen im Entwurf, fehlende Tests, fehlende Dokumentation führen zu hohem Aufwand bei Erweiterung
+Enums: Definieren ein unveränderbares geordnetes Set von exklusiven Zuständen, Objekte verhalten sich wie primitive Datentypen, können nicht abgeleitet werden
+Generics: werden nur während der Kompilierung ausgewertet werden, Sprachmittel, mit denen Klassen und Methoden mit Typparametern parametrisiert werden können
+Wildcards:  3 Arten: <?> beliebiger Typ, <? super [Type]> Superklasse von Type, <? extends [Type]> von Type abgeleiteter Typ, und Verknüpfung mehrerer Typen
+Monolith: Vorteile: kompakter Code, nachvollziehbar, Nachteile: zwingend sequentiell, keine Trennung der Funktionalität, limitierte Verzweigung, schwach objektorientiert
+ereignisorientiert: Funktionalität in Objekten realisieren, Gesamtsystem wird durch interagierende Objekte realisiert
+Inversion of Control: Programmier gibt nicht Programmfluss vor, sondern Module kontrollieren Kontrollfluss selber
+Beobachtermuster: Subjekt: beobachtetes Objekt, kapselt Zustände und Zustandsübergänge, Beobachter: liest Zustände des Subjekts, reagiert auf Zustandsänderungen des Subjekts
+Event: Klasse existiert nur aus Gründen der Abwärtskompatibilität
+Eventlistener: damit Programm über für Programmablauf wichtige Events informiert wird
+Eventhandler: kontrolliert Event und entscheidet was passiert, wenn Event auftritt, wird ausgeführt wenn Event auftritt
+innere Klassen: Klasse definiert in einer anderen Klasse
+anonyme Klassen: zum Beispiel als ActionListener übergeben, haben limitierten Scope, gehören zu Methoden
+Lamda-Ausdrücke: ersetzen anonyme Klassen ab Java 8 
+event delivery: Notwendigkeit: Shortcuts, deaktivierte Elemente, Tabulator und Eingabetaste in Texteingabefeld
+Collection: Sammlung von Objekten, kann Duplikate enthalten, hat keine Ordnung, kann keine primitiven Datentypen enthalten
+Iterator: realisiert einen Zeiger auf eine Sammlung von Elementen, Implementierung ist stark von der zugrunde liegenden Sammlung abhängig, ist nicht auf Sammlungen beschränkt
+ArrayList: wahlfreier Zugriff
+LinkedList: kein wahlfreien Zugriff auf Objekte
+List: geordnete Sammlung von Objekten, Zugriff über Index, kann Duplikate enthalten
+Set: jeder Key kommt nur einmal vor, keine Duplikate, hat keine Ordnung
+HashSet: Schnelle Mengenimplementierung durch Hasing-Verfahren
+LinkedHashSet: basiert wie HashSet auf HashTable kombiniert mit einer LinkedList, Reihenfolge definiert durch Reihenfolge des Einfügens, hat Ordnung durch Einfügen
+TreeSet:  Sammlung von Objekten ohne Duplikate mit natürlicher Ordnung
+Comparable: dient dem Vergleich, Interface für vergleichbare Sachen
+Comparator: kann Sachen vergleichen, die nicht durch Interface abgedeckt sind
+Map: Sammlung von Schlüssel-Wert-Paaren, keine Duplikate von Schlüsseln erlaubt
+HashMap: eignet sich für viele Elemente unsortiert zu speichern und sie über Schlüssel verfügbar zu machen
+LinkedHashMap: kann in determinitischer Form traversiert werden, Elemente in doppelt verketteten Liste verknüpft 
+TreeMap: speichert eine sortierte Abfolge von Element-Paaren bei denen jeweils ein Wert einem Schlüssel zugewiesen ist, Sortierung anhand Keys
+FILO: First in Last out, Stack
+FIFO: First in First out, Queue
+Kontrollfluss: zeitliche Abfolge der einzelnen Befehle
+Kausalität: Abhängigkeiten
+nebenläufig: kausale Abhängigkeiten vermeiden, da sonst Nebenläufigkeit nicht richtig möglich
+Thread: Teil eines Prozesses
+Runnable: Schnittstelle mit run() Methode, Anweisungen für Threads sind hier verpackt
+Scheduler: verteilt nebenläufige Kontrollflüsse (Threads) auf Prozesse
+InterruptedException: tritt auf, wenn ein Thread durch einen anderen unterbrochen wurde
+volatile: garantiert, dass Zugriffe auf gekennzeichnete Felder mit Hauptspeicher synchronisiert werden
+race condition: tritt auf, wenn Sachen nicht geschützt werden, Teil wurde durchgeführt, Ergebnis ist dann nicht mehr korrekt
+atomic: Operationen bei denen nichts dazwischen kommen kann, unterliegen keiner race condition
+Monitor: schützen Programmabschnitt die nur von einem Thread zur gleichen Zeit ausgeführt werden dürfen
+deadlock: Zugriff auf geschützte Variablen, beide warten, keiner kann weiter arbeiten
+wait:  registriert den aufrufenden Thread am Monitor und entzieht dem Thread die Rechenzeit, außerdem wird der aktuelle Monitor freigegeben
+notify: gibt einem wartenden Thread die Möglichkeit den kritischen Bereich wieder zu betreten, bekommt Rechenzeit
+Lock: funktioniert wie ein Monitor mit leicht veränderter Syntax und zusätzlicher Funktionalität, lock(), unlock()
+Condition: await() entspricht wait(), signal() weckt einen an dieser Condition wartenden Thread auf
+Callable: ist Task der von Thread ausgeführt werden kann, der Rückgabe geben kann
+Executor: Implementierungen von Threadpools, ThreadPoolExecutor und ScheduledThreadPoolExecutor
+Future: verwaltet die Rückgabe, liefert Zugriff auf Ergebnisse von einem Callable und ermöglicht Fangen von Exceptions
+thread overhead: zu viele Threads gestartet
+JavaFX: Standard GUI Toolkit
+javafx.scene.Scene: Renderer für Darstellung von 2D oder 3D Szenen
+scene graph: gehört zu JavaFX, zur grafischen Oberfläche, hat Knoten und Kanten, kann mehrere Wege zwischen Objekten haben, andere grafischen Elemente sind hier enthalten
+FXML: übersichtlich, muss nicht kompiliert werden, kann beim Laden einfach lokalisiert werden, trennt Visualisierung und Logik der Darstellung
+MVC: Model View Controller, zum Entwerfen von grafischen Anwendungen, klare Trennung von Model und View
+MVVM: Model View ViewModel, Verbindung zwischen Model und View, keine Trennung von Controller 
+property: Konzept, Property kann nicht alleine existieren, Property hängt an Objekt, getter und Setter haben, Zugriff wird in einer Weise verwaltet, bei Feldern nicht zu sehen
+binding:  umfassen einen oder mehrere Werte deren Zustand überwacht und bei Änderungen automatisch angepasst wird
+imperativ: Beschreibung wie soll etwas nacheinander ablaufen, wie soll ich es raus haben?
+deklarativ: was soll passieren, was will ich raus haben?
+Layout: Container Layout, Komponenten Layout
+JavaFX UI controls: Accordion, Check Box, Color Button, Graphic Button, Hyperlink, Radio Button, Toggle Button, Choice Box, Horizontal List View, Single List View, Progress Bar, Progress Indicator, Scroll Bar, Table, Tab, Advanced Label, Simple Label, Text Field, Tool Bar, Tree View
+Stream: erlauben entweder Lesen oder Schreiben auf unendlichen Daten, sind sequenziell dh Reihenfolge sicher, bieten mindestens eine Methode zum Lesen bzw Schreiben eines Tokens an der aktuellen Position, Lesen und Schreiben ändert die Position
+Stream-Namenskonvention: nach Richtung, nach Token, nach Ressource
+File: repräsentiert Dateien und Verzeichnisse, ist kein Zugriffsobjekt für den Dateiinhalt dh keine Lese- oder Schreibmethode
+Closeable: Klasse greift auf etwas zu, Closable sorgt dafür das Zugriff auch wieder abgebrochen wird, implementiert eine Klasse Closable zeigt das an, das die Klasse einen sperrenden Zugriff auf Ressource hat
+AutoCloseable: in try( ) Sachen angeben, Syntax garantiert das close() immer aufgerufen wird, nicht idempotent
+Flushable: implementiert Klasse Flushable zeigt das an, das Klasse einen Zugriff auf Ressource mit teurem Schreibzugriffen hat, Schreibmethoden schreiben nicht direkt auf Ressource sondern in buffer
+Filter: liest Daten von Stream und gibt neuen Stream zurück nachdem Daten transformiert wurden
+Dekoratormuster: Vorteile: Dekoratoren können beliebig geschachtelt werden, können zur Laufzeit ausgetauscht werden, auf eine Instanz kann über verschiedene Dekoratoren zugegriffen werden, minimiert Anzahl der notwendigen Ableitungen, Nachteile: Objektidentität und Klassenzugehörigkeit ist nicht mehr trivial zu bestimmen, Schreibarkeit für die Delegation
+Encoding: Kodierung in wiederherstellbaren Methode, sodass es wird lesbar gemacht werden kann
+RandomAccessFile: Wahlfreier Zugriff in einer Datei, Position in der Datei umspringen
+JOS: Java Standardserialisierung, Objekte werden in eine Bytefolge kodiert bzw aus eine Bytefolge dekodiert
+JBP: Lesen und Schreiben von JavaBeans in XML
+Serializable: Implementierung ist Voraussetzung um Objete zu serialisieren
+XMLEncoder: Klasse die Methoden zum Serialisieren von Beans definiert
+XMLDecoder: Klasse die Methoden zum Deserialisieren von Beans definiert
+funktional: arbeitet viel mit Funktionen, Java arbeitet mit Objekten
+Seiteneffekte: Dinge die bei bestimmten Aufrufen passieren, die so nicht vorgesehen waren, Methode aufrufen und Zustand ändert sich
+Streams: einmal mathematische Reihe, andere Folge von Bytes
+Server: wartet auf Anforderungen von Client
+Client: fragt Dienst von Server an
+Protokoll: Spezifikation wie Client und Server kommunizieren
+OSI: Application Layer → Transport Layer → Internet Layer 
+URL: Standard für Adressierung einer Webseite im WWW
+URLConnection: für Empfang der Inhalte der URL-Objekte verantwortlich, abstrakt
+UDP: verbindungslos, arbeitet gleich weiter ohne auf Antwort zu warten, Datagram
+TCP: verbindungsorientiert, wartet auf Rückantwort, Stream
+Socket: Abstraktion für Kommunikatio über Ports, definiert durch Hostname und Port
+ServerSocket: Socket, was nacheinander Verbindung entgegennehmen kann, und damit was machen kann  
+VCS: verschiedene Versionen von Softwareprojekte speichern und darauf zugreifen
+Git:  nicht lineare Versionsgeschichte, zentraler Server nicht zwingend notwendig
+clone: download from existing repository
+pull: fetch latest changes from origin and merge
+commit: commit all staged files to version history
+push: push local changes to the origin
+merge: zusammenführen von Dateien
+branch:  Werkzeug zur Organisation der Entwicklung 
+Versionsgraph: Abfolge von commits 
+Build-Automatisierung: Auflösung und Laden von Abhängigkeiten, Kompilierung, Testausführung, Verteilung
+Jar: enthält Artefakte, wie .class Dateien, braucht Manifest um daraus was Ausführbares zu machen
+Gradle: erlaubt parallele Ausführung von Tasks, deklarative und imperative Verwendung
+Konvention vor Konfiguration: Komplexität von Konfiguration reduzieren
+Double-Typen: Hilfsklassen zum Testen von einer Klasse
+Mockito: Spy bzw Mock Framework, Doubles werden zur Laufzeit generiert
+Prüfung von Verhalten: nicht Endergebnis testen, sondern wie Endergebnis zustande kommt
